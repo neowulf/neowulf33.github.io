@@ -3,8 +3,8 @@
 # ----------------------- #
 
 url: http://neowulf33.github.io
-title: Neowulf33
-subtitle: Tinkerer
+title: neowulf33
+subtitle: hacker, tinkerer, explorer
 author: 
 simple_search: https://www.google.com/search
 description:
@@ -34,11 +34,12 @@ plugins: plugins
 code_dir: downloads/code
 category_dir: blog/categories
 markdown: rdiscount
+# rdiscount plugins - http://rdoc.info/github/davidfstr/rdiscount/RDiscount
 rdiscount:
   extensions:
-    - autolink
-    - footnotes
-    - smart
+    - autolink      # greedily urlify links
+    - footnotes     # footnotes
+    - smart         # typographic substitutions with SmartyPants
 highlighter: pygments # default python pygments have been replaced by pygments.rb
 
 paginate: 10          # Posts per page on the blog index
