@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: tips | neowulf33]]></title>
+  <link href="http://neowulf33.github.io/blog/categories/tips/atom.xml" rel="self"/>
+  <link href="http://neowulf33.github.io/"/>
+  <updated>2015-09-24T02:31:05+02:00</updated>
+  <id>http://neowulf33.github.io/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[How to change the default font for Apple Notes?]]></title>
+    <link href="http://neowulf33.github.io/blog/2014/08/06/how-to-change-the-default-font-for-apple-notes/"/>
+    <updated>2014-08-06T23:44:26+02:00</updated>
+    <id>http://neowulf33.github.io/blog/2014/08/06/how-to-change-the-default-font-for-apple-notes</id>
+    <content type="html"><![CDATA[<h2>Introduction</h2>
+
+<p>When need of a temporary textpad, I do one of the following:</p>
+
+<p><code>vi /dev/null</code></p>
+
+<p>or open the following browser bookmark aptly called &ldquo;Notebook&rdquo; from my bookmark bar:</p>
+
+<p><code>data:text/html, &lt;html contenteditable&gt;</code></p>
+
+<p>Go ahead, try to copy and paste the above snippet into the browser location and go. Presto, a basic textpad is now available. But, if I need to store notes in a lightweight application - Apple Notes fits the bill for me.</p>
+
+<p>Apple Notes is nice as it&rsquo;s a quick textpad. I don&rsquo;t have to worry about where the file needs to be stored. I can search through all of my notes to bring up the interesting note. I can pull it up on my iPhone. It&rsquo;s a temporary notebook which contains rough notes. Once, these notes are processed, I typically dump them in to Evernote.</p>
+
+<p>But, the reason why we are here is because I needed to change the default font of my Apple Notes. I wanted a monospace font so that I can clip log lines / code snippets into there.</p>
+
+<!--more-->
+
+
+<h2>Instructions</h2>
+
+<p>1. Open the following plist file:</p>
+
+<pre><code>sudo vi /Applications/Notes.app/Contents/Resources/en.lproj/DefaultFonts.plist
+</code></pre>
+
+<p>2. Add the following xml node to the array. Of course, change the string value to your favorite font.
+<code>
+    &lt;dict&gt;
+        &lt;key&gt;FontName&lt;/key&gt;
+        &lt;string&gt;Monaco&lt;/string&gt;
+        &lt;key&gt;Size&lt;/key&gt;
+        &lt;integer&gt;12&lt;/integer&gt;
+    &lt;/dict&gt;
+</code></p>
+
+<p>3. Restart Apple Notes.</p>
+
+<p>4. From the menu, I selected Monaco as my default font:</p>
+
+<pre><code>Font &gt; Default Font &gt; Monaco
+</code></pre>
+]]></content>
+  </entry>
+  
+</feed>

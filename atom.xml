@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[neowulf33]]></title>
+  <link href="http://neowulf33.github.io/atom.xml" rel="self"/>
+  <link href="http://neowulf33.github.io/"/>
+  <updated>2015-09-24T02:31:05+02:00</updated>
+  <id>http://neowulf33.github.io/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    
+    <title type="html"><![CDATA[D-Bus Notes]]></title>
+    <link href="http://neowulf33.github.io/blog/2015/09/24/d-bus-notes/"/>
+    
+    <updated>2015-09-24T01:52:55+02:00</updated>
+    <id>http://neowulf33.github.io/blog/2015/09/24/d-bus-notes</id>
+    
+    <content type="html"><![CDATA[<h2>Abstract</h2>
+
+<p>D-Bus is a message bus which can be used for inter process communication primarily designed for Unix like systems. There are two types of message buses that are available. The first being the &ldquo;system daemon&rdquo; which is typically used for broadcasting system events such as detecting new hardware. The second type being the &ldquo;user session daemon&rdquo; which is typically restricted for user sessions.</p>
+
+<!--more-->
+
+
+<h4>D-Bus</h4>
+
+<ul>
+<li><code>dbus-daemon</code> - controlled by <code>/etc/init.d/dbus-1</code>
+
+<ul>
+<li><code>system</code> (starts by default)</li>
+<li>per user - <code>session</code></li>
+</ul>
+</li>
+<li>To start the user session daemon
+
+<ul>
+<li>eval <code>dbus-launch --auto-syntax</code>
+
+<ul>
+<li>starts message bus</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>D-Bus Utilities</h4>
+
+<h5>Structure</h5>
+
+<ul>
+<li>bus name (has &lsquo;.&rsquo; seperators)
+
+<ul>
+<li>objects identified by object path (has &lsquo;/&rsquo; separators)
+
+<ul>
+<li>methods (for ingress) (has &lsquo;.&rsquo; separators)</li>
+<li>signals (for egress)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h5>To find the dbus addresses</h5>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ netstat -an | grep @/tmp/dbus- | awk '{ print $NF }' | sort | uniq
+</span><span class='line'>@/tmp/dbus-C5P7XVCXyF
+</span><span class='line'>
+</span><span class='line'>$ dbus-monitor --address unix:abstract=/tmp/dbus-y3RN1QljDz</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Resources</h4>
+
+<ul>
+<li><a href="http://www.documentroot.net/en/linux/python-dbus-tutorial">Tutorial: Interprocess Communication with D-Bus and Python</a></li>
+<li><a href="http://excid3.com/blog/an-actually-decent-python-dbus-tutorial/">An actually decent Python DBus Tutorial</a></li>
+<li><a href="https://coelhorjc.wordpress.com/2014/12/09/howto-write-dbus-service-for-linux-in-python/">How to write dbus service for Linux (in Python)</a></li>
+</ul>
+
+]]></content>
+    
+  </entry>
+  
+  <entry>
+    
+    <title type="html"><![CDATA[How to change the default font for Apple Notes?]]></title>
+    <link href="http://neowulf33.github.io/blog/2014/08/06/how-to-change-the-default-font-for-apple-notes/"/>
+    
+    <updated>2014-08-06T23:44:26+02:00</updated>
+    <id>http://neowulf33.github.io/blog/2014/08/06/how-to-change-the-default-font-for-apple-notes</id>
+    
+    <content type="html"><![CDATA[<h2>Introduction</h2>
+
+<p>When need of a temporary textpad, I do one of the following:</p>
+
+<p><code>vi /dev/null</code></p>
+
+<p>or open the following browser bookmark aptly called &ldquo;Notebook&rdquo; from my bookmark bar:</p>
+
+<p><code>data:text/html, &lt;html contenteditable&gt;</code></p>
+
+<p>Go ahead, try to copy and paste the above snippet into the browser location and go. Presto, a basic textpad is now available. But, if I need to store notes in a lightweight application - Apple Notes fits the bill for me.</p>
+
+<p>Apple Notes is nice as it&rsquo;s a quick textpad. I don&rsquo;t have to worry about where the file needs to be stored. I can search through all of my notes to bring up the interesting note. I can pull it up on my iPhone. It&rsquo;s a temporary notebook which contains rough notes. Once, these notes are processed, I typically dump them in to Evernote.</p>
+
+<p>But, the reason why we are here is because I needed to change the default font of my Apple Notes. I wanted a monospace font so that I can clip log lines / code snippets into there.</p>
+
+<!--more-->
+
+
+<h2>Instructions</h2>
+
+<p>1. Open the following plist file:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo vi /Applications/Notes.app/Contents/Resources/en.lproj/DefaultFonts.plist</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2. Add the following xml node to the array. Of course, change the string value to your favorite font.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;dict&gt;
+</span><span class='line'>    &lt;key&gt;FontName&lt;/key&gt;
+</span><span class='line'>    &lt;string&gt;Monaco&lt;/string&gt;
+</span><span class='line'>    &lt;key&gt;Size&lt;/key&gt;
+</span><span class='line'>    &lt;integer&gt;12&lt;/integer&gt;
+</span><span class='line'>&lt;/dict&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>3. Restart Apple Notes.</p>
+
+<p>4. From the menu, I selected Monaco as my default font:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Font &gt; Default Font &gt; Monaco</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+    
+  </entry>
+  
+  <entry>
+    
+    <title type="html"><![CDATA[First post]]></title>
+    <link href="http://neowulf33.github.io/blog/2014/08/06/first-post/"/>
+    
+    <updated>2014-08-06T00:03:27+02:00</updated>
+    <id>http://neowulf33.github.io/blog/2014/08/06/first-post</id>
+    
+    <content type="html"><![CDATA[<p>First post</p>
+]]></content>
+    
+  </entry>
+  
+</feed>

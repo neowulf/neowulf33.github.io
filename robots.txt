@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: 
+
+Sitemap: http://neowulf33.github.io/sitemap.xml 
