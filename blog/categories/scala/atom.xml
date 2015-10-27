@@ -4,7 +4,7 @@
   <title><![CDATA[Category: scala | neowulf33]]></title>
   <link href="http://neowulf33.github.io/blog/categories/scala/atom.xml" rel="self"/>
   <link href="http://neowulf33.github.io/"/>
-  <updated>2015-10-26T21:35:36-07:00</updated>
+  <updated>2015-10-26T21:35:58-07:00</updated>
   <id>http://neowulf33.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -47,8 +47,8 @@ this post is only for illustration purposes as this solution can also be done en
 <li><code>jq</code> - lightweight and flexible command-line JSON parser. <a href="https://stedolan.github.io/jq/">Documentation</a>
 
 <ul>
-<li><code>.hits.hits[]</code> - Get the array of hits.</li>
-<li><code>.fields.keywords</code> - Get the keywords from each of the hits in an array.</li>
+<li><code>.hits.hits[]</code> - Get the array of <code>hits</code>.</li>
+<li><code>.fields.keywords</code> - Get the <code>keywords</code> from each of the <code>hits</code> and return the results in an array.</li>
 </ul>
 </li>
 <li><code>tr</code> - linux utility which translates a single character. <a href="http://linux.die.net/man/1/tr">Documentation</a>
