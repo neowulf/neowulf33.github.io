@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: scala | neowulf33]]></title>
+  <link href="http://neowulf33.github.io/blog/categories/scala/atom.xml" rel="self"/>
+  <link href="http://neowulf33.github.io/"/>
+  <updated>2015-10-26T21:35:36-07:00</updated>
+  <id>http://neowulf33.github.io/</id>
+  <author>
+    <name><![CDATA[]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Frequency Of Words]]></title>
+    <link href="http://neowulf33.github.io/blog/2015/10/26/frequency-of-words/"/>
+    <updated>2015-10-26T21:10:10-07:00</updated>
+    <id>http://neowulf33.github.io/blog/2015/10/26/frequency-of-words</id>
+    <content type="html"><![CDATA[<h2>Abstract</h2>
+
+<p>I want to demonstrate the power of Scala allowing us to comprehend lists in an easy fashion.</p>
+
+<p><em>Note:
+this post is only for illustration purposes as this solution can also be done entirely in ElasticSearch.</em></p>
+
+<!--more-->
+
+
+<h3>Step 1</h3>
+
+<p>Generate a comma separated list of words from the JSON document.</p>
+
+<pre><code>curl 'localhost:9200/curated/_search?q=*:*&amp;fields=keywords&amp;size=30' \
+  | jq '.hits.hits[] | .fields.keywords' \
+  | tr '\n' ' '     \
+  | tr '[' '\n'     \
+  | tr ']' ','      \
+  | sed 's|null||g' \
+  &gt; /tmp/keywords.scala
+</code></pre>
+
+<p>The following tools were used to generate a comma separated list of words.</p>
+
+<ol>
+<li><code>jq</code> - lightweight and flexible command-line JSON parser. <a href="https://stedolan.github.io/jq/">Documentation</a>
+
+<ul>
+<li><code>.hits.hits[]</code> - Get the array of hits.</li>
+<li><code>.fields.keywords</code> - Get the keywords from each of the hits in an array.</li>
+</ul>
+</li>
+<li><code>tr</code> - linux utility which translates a single character. <a href="http://linux.die.net/man/1/tr">Documentation</a>
+
+<ul>
+<li>Replace the newlines and the braces into a comma separated list of words.</li>
+</ul>
+</li>
+<li><code>sed</code> - popular linux utility which is an acronym for stream editor. <a href="http://linux.die.net/man/1/sed">Documentation</a>
+
+<ul>
+<li>Delete <code>null</code> words.</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Step 2</h4>
+
+<p>Prepend the result from the previous command with <code>List(</code> and append with <code>)</code>. I used
+a scala worksheet to play around with the list of keywords.</p>
+
+<pre><code>List("chicken", "barn", "dog", "cowboy", "farmers", "country", "rural" ,
+  "beach", "beaches", "sunrise", "sunrises", "emerald isle", 
+  "emerald isle nc", "north carolina", "north carolina beach", 
+  "sunrise over the beach", "atlantic ocean" ,"german shepherd", 
+  "dog", "portrait", "pet", "pets", "original painting", "realism", 
+  "l.a.shepard", "puppy", "canine", "pine", "scene", "landscape"
+).foldLeft(Map.empty[String, Int]) { (acc, currentItem) =&gt;
+  acc + (currentItem -&gt; (acc.get(currentItem).getOrElse(0) + 1))
+}.toList.sortBy { entry =&gt;
+  - entry._2
+}.foreach{ case (key, value) =&gt;
+  println(value.toString + "  " + key)
+}
+</code></pre>
+
+<p>Salient Points</p>
+
+<ol>
+<li>Iterate through the list and calculate the word frequency.</li>
+<li>Needed to reverse sort the values.</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+</feed>

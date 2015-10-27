@@ -4,7 +4,7 @@
   <title><![CDATA[neowulf33]]></title>
   <link href="http://neowulf33.github.io/atom.xml" rel="self"/>
   <link href="http://neowulf33.github.io/"/>
-  <updated>2015-09-24T02:31:05+02:00</updated>
+  <updated>2015-10-26T21:35:36-07:00</updated>
   <id>http://neowulf33.github.io/</id>
   <author>
     <name><![CDATA[]]></name>
@@ -15,11 +15,118 @@
   
   <entry>
     
-    <title type="html"><![CDATA[D-Bus Notes]]></title>
-    <link href="http://neowulf33.github.io/blog/2015/09/24/d-bus-notes/"/>
+    <title type="html"><![CDATA[Frequency Of Words]]></title>
+    <link href="http://neowulf33.github.io/blog/2015/10/26/frequency-of-words/"/>
     
-    <updated>2015-09-24T01:52:55+02:00</updated>
-    <id>http://neowulf33.github.io/blog/2015/09/24/d-bus-notes</id>
+    <updated>2015-10-26T21:10:10-07:00</updated>
+    <id>http://neowulf33.github.io/blog/2015/10/26/frequency-of-words</id>
+    
+    <content type="html"><![CDATA[<h2>Abstract</h2>
+
+<p>I want to demonstrate the power of Scala allowing us to comprehend lists in an easy fashion.</p>
+
+<p><em>Note:
+this post is only for illustration purposes as this solution can also be done entirely in ElasticSearch.</em></p>
+
+<!--more-->
+
+
+<h3>Step 1</h3>
+
+<p>Generate a comma separated list of words from the JSON document.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl 'localhost:9200/curated/_search?q=*:*&fields=keywords&size=30' \
+</span><span class='line'>  | jq '.hits.hits[] | .fields.keywords' \
+</span><span class='line'>  | tr '\n' ' '     \
+</span><span class='line'>  | tr '[' '\n'     \
+</span><span class='line'>  | tr ']' ','      \
+</span><span class='line'>  | sed 's|null||g' \
+</span><span class='line'>  &gt; /tmp/keywords.scala</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The following tools were used to generate a comma separated list of words.</p>
+
+<ol>
+<li><code>jq</code> - lightweight and flexible command-line JSON parser. <a href="https://stedolan.github.io/jq/">Documentation</a>
+
+<ul>
+<li><code>.hits.hits[]</code> - Get the array of hits.</li>
+<li><code>.fields.keywords</code> - Get the keywords from each of the hits in an array.</li>
+</ul>
+</li>
+<li><code>tr</code> - linux utility which translates a single character. <a href="http://linux.die.net/man/1/tr">Documentation</a>
+
+<ul>
+<li>Replace the newlines and the braces into a comma separated list of words.</li>
+</ul>
+</li>
+<li><code>sed</code> - popular linux utility which is an acronym for stream editor. <a href="http://linux.die.net/man/1/sed">Documentation</a>
+
+<ul>
+<li>Delete <code>null</code> words.</li>
+</ul>
+</li>
+</ol>
+
+
+<h4>Step 2</h4>
+
+<p>Prepend the result from the previous command with <code>List(</code> and append with <code>)</code>. I used
+a scala worksheet to play around with the list of keywords.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>List("chicken", "barn", "dog", "cowboy", "farmers", "country", "rural" ,
+</span><span class='line'>  "beach", "beaches", "sunrise", "sunrises", "emerald isle", 
+</span><span class='line'>  "emerald isle nc", "north carolina", "north carolina beach", 
+</span><span class='line'>  "sunrise over the beach", "atlantic ocean" ,"german shepherd", 
+</span><span class='line'>  "dog", "portrait", "pet", "pets", "original painting", "realism", 
+</span><span class='line'>  "l.a.shepard", "puppy", "canine", "pine", "scene", "landscape"
+</span><span class='line'>).foldLeft(Map.empty[String, Int]) { (acc, currentItem) =&gt;
+</span><span class='line'>  acc + (currentItem -&gt; (acc.get(currentItem).getOrElse(0) + 1))
+</span><span class='line'>}.toList.sortBy { entry =&gt;
+</span><span class='line'>  - entry._2
+</span><span class='line'>}.foreach{ case (key, value) =&gt;
+</span><span class='line'>  println(value.toString + "  " + key)
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Salient Points</p>
+
+<ol>
+<li>Iterate through the list and calculate the word frequency.</li>
+<li>Needed to reverse sort the values.</li>
+</ol>
+
+]]></content>
+    
+  </entry>
+  
+  <entry>
+    
+    <title type="html"><![CDATA[D-Bus Notes]]></title>
+    <link href="http://neowulf33.github.io/blog/2015/09/23/d-bus-notes/"/>
+    
+    <updated>2015-09-23T16:52:55-07:00</updated>
+    <id>http://neowulf33.github.io/blog/2015/09/23/d-bus-notes</id>
     
     <content type="html"><![CDATA[<h2>Abstract</h2>
 
@@ -101,7 +208,7 @@
     <title type="html"><![CDATA[How to change the default font for Apple Notes?]]></title>
     <link href="http://neowulf33.github.io/blog/2014/08/06/how-to-change-the-default-font-for-apple-notes/"/>
     
-    <updated>2014-08-06T23:44:26+02:00</updated>
+    <updated>2014-08-06T14:44:26-07:00</updated>
     <id>http://neowulf33.github.io/blog/2014/08/06/how-to-change-the-default-font-for-apple-notes</id>
     
     <content type="html"><![CDATA[<h2>Introduction</h2>
@@ -161,10 +268,10 @@
   <entry>
     
     <title type="html"><![CDATA[First post]]></title>
-    <link href="http://neowulf33.github.io/blog/2014/08/06/first-post/"/>
+    <link href="http://neowulf33.github.io/blog/2014/08/05/first-post/"/>
     
-    <updated>2014-08-06T00:03:27+02:00</updated>
-    <id>http://neowulf33.github.io/blog/2014/08/06/first-post</id>
+    <updated>2014-08-05T15:03:27-07:00</updated>
+    <id>http://neowulf33.github.io/blog/2014/08/05/first-post</id>
     
     <content type="html"><![CDATA[<p>First post</p>
 ]]></content>

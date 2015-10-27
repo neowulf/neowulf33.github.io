@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://neowulf33.github.io/blog/2015/09/24/d-bus-notes/</loc>
-    <lastmod>2015-09-24T01:52:55+02:00</lastmod>
+    <loc>http://neowulf33.github.io/blog/2015/10/26/frequency-of-words/</loc>
+    <lastmod>2015-10-26T21:10:10-07:00</lastmod>
+  </url>
+  <url>
+    <loc>http://neowulf33.github.io/blog/2015/09/23/d-bus-notes/</loc>
+    <lastmod>2015-09-23T16:52:55-07:00</lastmod>
   </url>
   <url>
     <loc>http://neowulf33.github.io/blog/2014/08/06/how-to-change-the-default-font-for-apple-notes/</loc>
-    <lastmod>2014-08-06T23:44:26+02:00</lastmod>
+    <lastmod>2014-08-06T14:44:26-07:00</lastmod>
   </url>
   <url>
-    <loc>http://neowulf33.github.io/blog/2014/08/06/first-post/</loc>
-    <lastmod>2014-08-06T00:03:27+02:00</lastmod>
+    <loc>http://neowulf33.github.io/blog/2014/08/05/first-post/</loc>
+    <lastmod>2014-08-05T15:03:27-07:00</lastmod>
   </url>
   <url>
     <loc>http://neowulf33.github.io/blog/archives/</loc>
@@ -26,5 +30,8 @@
   </url>
   <url>
     <loc>http://neowulf33.github.io/blog/categories/mac-os-x/</loc>
+  </url>
+  <url>
+    <loc>http://neowulf33.github.io/blog/categories/scala/</loc>
   </url>
 </urlset>
